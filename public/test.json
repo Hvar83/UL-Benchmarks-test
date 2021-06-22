@@ -12,16 +12,26 @@
         "overallScore": {
           "type": "TIME_SPY_OVERALL_SCORE_X",
           "score": 3430.0,
-          "uiValue": "3 430",
-          "unit": ""
+          "uiValue": "3430",
+          "unit": "",
+          "diff": {
+            "positive": true,
+            "value": "0.2 %",
+            "text": "increase since last test"
+          }
         },
         "componentScores": [
           {
             "type": "TIME_SPY_GRAPHICS_SCORE_X",
             "baseType": "GRAPHICS_SCORE",
             "score": 3541.0,
-            "uiValue": "3 541",
+            "uiValue": "3541",
             "unit": "",
+            "diff": {
+              "positive": true,
+              "value": "10 points",
+              "text": "increase since last test"
+            },
             "subScores": [
               {
                 "uiValue": "22.46",
@@ -47,8 +57,13 @@
             "type": "TIME_SPY_CPU_SCORE_X",
             "baseType": "CPU_SCORE",
             "score": 2915.0,
-            "uiValue": "2 915",
+            "uiValue": "2915",
             "unit": "",
+            "diff": {
+              "positive": true,
+              "value": "3 points",
+              "text": "increase since last test"
+            },
             "subScores": [
               {
                 "uiValue": "120.1",
@@ -436,6 +451,42 @@
     "freesyncMode": "FREESYNC_DISABLED",
     "vsyncMode": "VSYNC_DISABLED",
     "arm": false
+  },
+  "rangeStatistics": {
+    "cpu": {
+      "score": {
+          "mesure": "points",
+          "fail": [0, 500],
+          "warning": [501, 1500],
+          "positive": [1501, 5000]
+      },
+      "cpu_test_time": {
+        "mesure": "ms",
+        "fail": [400, 1000],
+        "warning": [100, 399],
+        "positive": [0, 100]
+      }
+    },
+    "gpu": {
+      "score": {
+        "mesure": "points",
+        "fail": [0, 500],
+        "warning": [501, 1500],
+        "positive": [1501, 5000]
+      },
+      "gt_1": {
+        "mesure": "ms",
+        "fail": [400, 1000],
+        "warning": [100, 399],
+        "positive": [0, 100]
+      },
+      "gt_2": {
+        "mesure": "ms",
+        "fail": [400, 1000],
+        "warning": [100, 399],
+        "positive": [0, 100]
+      }
+    }
   },
   "benchmarkRunId": "ff162fe4-faf4-4bdc-a6be-83d16e0c2123",
   "workload": null,

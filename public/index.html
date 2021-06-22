@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
   <title>UL</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="application/javascript" src="script.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <script type="application/javascript" src="gauge.js"></script>
 </head>
 
 <body>
   <div class="procyon-result">
   <div class="flex-row">
-    <div class="flex-col w50">
+    <div class="flex-col w70">
       <div class="flex-row w100">
         <div class="flex-col w50">
           <div class="procyon-overall-score procyon-result-box p0 flex-col-stretch w100">
             <div>
               <h2 class="m1">Test name score</h2>
               <div class="main-score">
-                <h3>6, 174</h3>
-                <p>+ 0.2% increase since last test</p>
+                <h3 class="count">6, 174</h3>
+                <p class="feedback"></p>
               </div>
             </div>
             <div class="system-info">
@@ -48,13 +54,13 @@
         <div id="COMPONENT_SCORE" class="flex-col w50 pl05">
           <div class="w100 procyon-result-box flex-col-stretch p1">
             <h3 class="no-border pb05">Component score</h3>
-            <h2 class="center no-border pt05">1234</h2>
+            <h2 class="center no-border pt05 count">1234</h2>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex-col w50 pl05">
+    <div class="flex-col w30 pl05">
       <div class="procyon-result-header procyon-result-box {opts.result.test.image} keyart">
         <div class="procyon-result-header-title-container">
           <h1 id="TEST_NAME">result</h1>
@@ -65,28 +71,19 @@
 
   <div class="flex-row-fill w100 pt05 procyon-detailed-score mtb1">
     <h2>Detailed Scores</h2>
+    <div id="feedback-switcher">
+      <h5 class="switcher-label">Show feedbacks</h5>
+      <div class="check-state" id="check-state">
+        <input type="checkbox" class="checkbox-switcher">
+        <span class="switcher"></span>
+        <span class="layer-switcher"></span>
+      </div>
+    </div>
   </div>
 
   <div class="procyon-component-score flex-row-start procyon-result-box w100">
       <div class="flex-col-start w33 p05 plr1">
-        <div class="flex-row procyon-subscore pb05">
-          <div class="w60 pr05">
-            <h3>ComponentScore</h3>
-          </div>
-          <div class="w40">
-            <p>1111</p>
-          </div>
-        </div>
-        <div class="w100">
-          <div class="flex-row w100 procyon-deepsubscore pb05" each="{subScores in componentScore.subScores}">
-            <div class="w60 pr05">
-              <h4>Subscore</h4>
-            </div>
-            <div class="w40">
-              <p>500</p>
-            </div>
-          </div>
-        </div>
+        <div class="loader"></div>
       </div>
   </div>
 
@@ -104,98 +101,30 @@
                 <div id="SYSTEMINFO_CPU" class="w30 m05">
                   <h3 class="border-bottom pb05"><i class="icon icon-cpu fm-icon mr05"></i>CPU</h3>
                   <div each={opts.run.systemInfo.cpu} class="mb05">
-                    <dl class="result-systeminfo-list-details clearfix">
-
-                      <dt>CPU</dt>
-                      <dd>${cpu.name}</dd>
-
-                      <dt>Codename</dt>
-                      <dd>${cpu.processorCodeName}</dd>
-
-                      <dt>Clock frequency</dt>
-                      <dd>${cpu.stockFrequencyMhz} MHz</dd>
-
-                      <dt>Max Frequency</dt>
-                      <dd>${cpu.maxFrequencyMhz} MHz</dd>
-
-                      <dt>Cores</dt>
-                      <dd>${cpu.coreCount} (${cpu.threadCount})</dd>
-
-                      <dt>Package</dt>
-                      <dd>${cpu.processorPackage}</dd>
-
-                      <dt>Manufacturing process</dt>
-                      <dd>${cpu.manufacturingProcessNm} NM</dd>
-
-                      <dt>Core VID</dt>
-                      <dd>${cpu.voltageId} V</dd>
-
-                      <dt>Virtual Technology</dt>
-                      <dd>${cpu.virtualTechnologyCapable}</dd>
-                    </dl>
+                    <div class="loader"></div>
                   </div>
                 </div>
 
                 <div id="SYSTEMINFO_GPU" class="w30 m05">
                   <h3 class="border-bottom pb05"><i class="icon icon-gpu mr05"></i>GPU</h3>
                   <div each={opts.run.systemInfo.gpu} class="mb05">
-                    <dl class="result-systeminfo-list-details clearfix">
-                      <dt>GPU</dt>
-                      <dd>${gpu.name}</dd>
-
-                      <dt>Memory</dt>
-                      <dd>${gpu.memory.memoryAmountMb} MB ${gpu.memory.memoryType}</dd>
-
-                      <dt>Available VRAM</dt>
-                      <dd>${gpu.memory.availableVram} MB</dd>
-
-                      <dt>Code Name</dt>
-                      <dd>${gpu.codeName}</dd>
-
-                      <dt>Manufacturer</dt>
-                      <dd>${gpu.pciDeviceId.vendorName} / ${gpu.pciDeviceId.subvendorName}</dd>
-
-                      <dt>Manufacturing process</dt>
-                      <dd>${gpu.manufacturingProcess} NM</dd>
-                      <dt>Driver Version</dt>
-                      <dd>${gpu.driverInfo.driverVersion}</dd>
-
-                      <dt>Clock frequency</dt>
-                      <dd>${gpu.clockSpeed.gpu.currentMhz} MHz</dd>
-
-                      <dt>Boost</dt>
-                      <dd>${gpu.clockSpeed.boost.currentMhz} MHz
-                      </dd>
-
-                      <dt>Memory clock frequency</dt>
-                      <dd>${gpu.clockSpeed.memory.currentMhz} MHz</dd>
-                    </dl>
-
+                    <div class="loader"></div>
                     <div class="systeminfo-display-list">
                       <dl class="result-systeminfo-list-details clearfix" each={ display, i in displays }>
-                        <dt>Display {i+1}</dt>
-                        <dd>${display.deviceName} (${display.resolution})</dd>
-                      </dl>
                     </div>
                   </div>
                 </div>
 
                 <div id="SYSTEMINFO_STORAGE" class="w30 m05">
                   <h3 class="border-bottom pb05"><i class="icon icon-download fm-icon mr05"></i>Storage</h3>
-
+                  <div class="loader"></div>
                   <div class="systeminfo-storage-list">
                       <dl class="result-systeminfo-list-details clearfix">
-                        <dt>Drive ${i+1}</dt>
-                        <dd class="pr15">${storage.driveName}</dd>
                       </dl>
                       <div class="storage-info">
                         <dl class="result-systeminfo-list-details clearfix pl1">
-                          <dt class="">Drive Model</dt>
-                          <dd class="">${storage.driveModel}</dd>
                         </dl>
                         <dl class="result-systeminfo-list-details clearfix pl1">
-                          <dt class="">Drive Type</dt>
-                          <dd class="">${storage.driveType}</dd>
                         </dl>
                       </div>
                   </div>
